@@ -1,0 +1,452 @@
+body {
+    font-family: 'Poppins', sans-serif; /* Using a clean, modern font */
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* --- 1. Top Announcement Bar --- */
+.top-bar {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 1px 0;
+    font-size: 0.8rem;
+    border-bottom: 1px solid #eee;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* --- 2. Main Header/Navigation --- */
+.header {
+    background-color: #fff;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    max-width: 1400px;
+    margin: 0 auto;
+    /* padding: 10px 30px; Added horizontal padding */
+}
+
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.auth-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.icon-link {
+    font-size: 1.2rem;
+}
+
+.cart-icon {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: black; /* The icon is on a white background, so a dark counter is better */
+    color: white;
+    font-size: 0.7rem;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+}
+
+.header-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 25px;
+}
+
+.main-nav a {
+    font-size: 0.9rem;
+    color: #555;
+    transition: color 0.2s;
+}
+
+.main-nav a:hover {
+    color: #007bff; /* Example hover color */
+}
+
+.phone-number {
+    color: #007bff; /* Highlighted text color */
+    font-weight: 600;
+}
+
+.search-button {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: #555;
+    transition: background-color 0.2s;
+}
+
+.search-button:hover {
+    border-color: #007bff;
+}
+
+/* --- 3. Hero Section --- */
+.hero-section {
+    background-color: #364e6e; /* Dark blue/slate background */
+    color: white;
+    padding: 100px 30px;
+    min-height: 500px;
+    display: flex;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden; /* To contain the image placeholders */
+}
+
+.hero-content {
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 10;
+}
+
+.hero-content h1 {
+    font-size: 6rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+}
+
+.shop-now-btn {
+    background-color: #007bff; /* Bright blue button */
+    color: white;
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-weight: 600;
+    max-width: 150px;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.shop-now-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Placeholder for the complex product image area on the right */
+.hero-image-placeholder {
+    position: absolute; 
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    /* In a real project, this would be complex CSS/SVG shapes and image overlays */
+    /* We'll use a simple indicator for positioning */
+}
+
+/* 1. Define the Keyframes for the Scrolling Animation */
+@keyframes marquee-scroll {
+    /* Start position: 0 (or original position) */
+    0% {
+        transform: translateX(0);
+    }
+    /* End position: move the content left by 50% of its width */
+    /* This creates a seamless loop when the content is doubled/repeated */
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* 2. Styles for the Marquee Container (Blue Bar) */
+.marquee-wrapper {
+    background-color: #007bff; /* Bright blue color from the screenshot */
+    width: 100%;
+    overflow: hidden; /* Important: Hides the content as it scrolls off the screen */
+    white-space: nowrap; /* Ensures all the text stays on one line */
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 3. Styles for the Animating Content */
+.marquee-content {
+    display: inline-block;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    /* Apply the animation */
+    animation: marquee-scroll 10s linear infinite; /* 10s duration, linear speed, infinite loop */
+    /* We double the content's width to ensure a seamless transition. */
+    width: 200%; 
+}
+
+/* Styling for the repeated text segments */
+.marquee-content span {
+    margin-right: 40px; /* Space between each "Sale is on!" phrase */
+    text-transform: uppercase;
+}
+
+
+/* General Reset/Base Styles */
+body {
+    font-family: Arial, sans-serif; /* Use your preferred font */
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* Assuming a white background for the whole page */
+}
+
+/*-------------------------------------------------------------------------------------------------------------------
+/* --- Global & Page Container --- */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff; /* Ensure white background for the whole page */
+}
+
+.page-container {
+    max-width: 1200px; /* Max width of the main content area */
+    /* margin: 0 auto; */
+    /* padding: 0 20px; */
+}
+
+/* --- Page Header/Title Section --- */
+.page-header {
+    text-align: center;
+    padding: 40px 0 0; /* Reduced bottom padding */
+}
+
+.page-header h1 {
+    font-size: 40px;
+    font-weight: 300;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+/* --- Main Layout for Sidebar and Grid --- */
+.main-layout {
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px; /* Space between sidebar and product content */
+}
+
+/* 1. Sidebar (Browse By) Styling */
+.sidebar {
+    width: 200px; /* Fixed width for the sidebar */
+    padding-top: 20px;
+    flex-shrink: 0; /* Prevents sidebar from shrinking */
+}
+
+.sidebar h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.sidebar li {
+    margin-bottom: 5px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+    display: block;
+    padding: 3px 0;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    color: #1a73e8; /* Highlight color on hover/active */
+    font-weight: 500;
+}
+/* --- New Products Section Styling --- */
+.new-products-section {
+    max-width: 1200px; /* Adjust max width as needed */
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+/* Header (New Products title and View More button) */
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+}
+
+.header-row h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: #000000;
+}
+
+.view-more-btn {
+    background-color: #1a73e8; /* Blue color from the screenshot */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.view-more-btn:hover {
+    background-color: #1558b3;
+}
+
+/* Product Grid Layout */
+.product-grid {
+    display: flex; /* Using flexbox for simplicity and easy card distribution */
+    justify-content: space-between;
+    gap: 20px; /* Space between cards */
+}
+
+/* Individual Product Card */
+.product-card {
+    flex: 1 1 23%; /* Allows cards to grow/shrink, taking about 23% of the container width */
+    text-align: left;
+    padding: 10px;
+    box-shadow: 2px 2px 5px black;  
+    border-radius: 2%;
+    /* Optional: box-shadow for a lifted look */
+}
+
+.sale-tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #1a73e8; /* Blue color */
+    color: white;
+    padding: 4px 8px;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-radius: 5px 0 5px 0;
+    z-index: 10;
+}
+
+/* Image Container and Image Styling */
+.product-image-container {
+    position: relative;
+    height: 300px; /* Fixed height for consistent card size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.product-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    width: auto;
+    object-fit: contain; /* Ensures the whole product is visible without cropping */
+}
+
+/* Product Name and Price Styling */
+.product-name {
+    font-size: 1em;
+    font-weight: 500;
+    margin: 5px 0;
+    color: #000000;
+    min-height: 2.4em; /* Ensure consistent height for names that wrap to 2 lines */
+}
+
+.product-price {
+    font-size: 1em;
+    color: #000000;
+    font-weight: 400;
+}
+
+/* Price Row for Sale Item */
+.product-price-row {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+.original-price {
+    color: #999999; /* Light grey for strikethrough price */
+    text-decoration: line-through;
+    margin-right: 8px;
+    font-weight: 400;
+}
+
+.current-price {
+    color: #000000;
+    font-weight: 400;
+}
+
+/* --- Media Query for Responsiveness (Optional but recommended) --- */
+@media (max-width: 900px) {
+    .product-grid {
+        /* Switch to 2 columns on medium screens */
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .product-card {
+        flex: 1 1 45%; /* Two cards per row */
+    }
+}
+
+@media (max-width: 500px) {
+    .product-grid {
+        /* Switch to 1 column on small screens */
+        flex-direction: column;
+        align-items: center;
+    }
+    .product-card {
+        flex: 1 1 100%;
+        max-width: 300px; /* Limit card width on very small screens */
+    }
+    .header-row h1 {
+        font-size: 1.5em;
+    }
+}

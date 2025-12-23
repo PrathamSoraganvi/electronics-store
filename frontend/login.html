@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMRT Login</title>
+       <link rel="stylesheet" href="css/login.css">
+
+</head>
+<body>
+
+<div class="login-container">
+    <h2>SMRT Login</h2>
+
+    <form id="loginForm">
+        <label>Email</label>
+        <input type="text" id="email" placeholder="Enter your email">
+
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter your password">
+
+        <p id="error-message" style="color: red; font-size: 14px; margin-top: 5px; min-height: 20px;"></p>
+
+        <button type="submit" class="btn">Login</button>
+    </form>
+
+    <div class="signup-text">
+        Don't have an account? <a href="signup.html">Sign Up</a>
+    </div>
+</div>
+
+<!-- JS inside same HTML -->
+<script>
+    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        let email = document.getElementById("email").value.trim();
+        let password = document.getElementById("password").value.trim();
+        let error = document.getElementById("error-message");
+
+        error.textContent = ""; // Clear old errors
+
+        // Email validation
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (email === "") {
+            error.textContent = "Enter email";
+            return;
+        }
+
+        if (!emailPattern.test(email)) {
+            error.textContent = "Invalid email id";
+            return;
+        }
+
+        if (password === "") {
+            error.textContent = "Enter password";
+            return;
+        }
+
+        // Verify credentials against database
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                // Store user info in localStorage (optional, for future use)
+                if (data.user) {
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                }
+
+                // Redirect to main page
+                window.location.href = "electronics.html?login=success";
+            } else {
+                // Show error message
+                error.textContent = data.error || "Invalid email or password";
+            }
+        } catch (err) {
+            console.error('Login error:', err);
+            error.textContent = "Connection error. Please try again.";
+        }
+    });
+</script>
+
+</body>
+</html>

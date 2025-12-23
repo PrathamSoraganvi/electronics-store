@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Secure Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8ff;
+        }
+
+        .payment-wrapper {
+            max-width: 420px;
+            margin: 60px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            padding: 25px;
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .payment-header h2 {
+            color: #0a58ca;
+            margin-bottom: 5px;
+        }
+
+        .order-summary {
+            background: #eef4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .order-summary p {
+            margin: 6px 0;
+            font-size: 15px;
+        }
+
+        label {
+            font-size: 14px;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .payment-methods {
+            margin: 15px 0;
+        }
+
+        .payment-methods label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .pay-btn {
+            width: 100%;
+            padding: 12px;
+            background: #0a58ca;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .pay-btn:hover {
+            background: #084298;
+        }
+
+        .note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="payment-wrapper">
+    <div class="payment-header">
+        <h2>Demo Payment</h2>
+        <p>Secure Checkout</p>
+    </div>
+
+    <div class="order-summary">
+        <p><strong>Product:</strong> <span id="productName"></span></p>
+        <!-- <p><strong>Amount:</strong> ₹<span id="productPrice"></span></p> -->
+        <p><strong>Price:</strong> ₹<span id="productPrice"></span></p>
+        <p><strong>Quantity:</strong> <span id="productQty"></span></p>
+        <p><strong>Total Amount:</strong> ₹<span id="totalPrice"></span></p>
+
+    </div>
+
+    <label>Full Name</label>
+    <input type="text" placeholder="Enter your name">
+
+    <label>Email Address</label>
+    <input type="email" placeholder="Enter your email">
+
+    <div class="payment-methods">
+        <label><input type="radio" name="payment" checked> UPI</label>
+        <label><input type="radio" name="payment"> Credit / Debit Card</label>
+        <label><input type="radio" name="payment"> Cash on Delivery</label>
+    </div>
+
+    <button class="pay-btn" id="payNow">Pay Now</button>
+
+    <div class="note">
+        * This is a demo payment system (No real transaction)
+    </div>
+</div>
+
+<!-- <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("productName").innerText = params.get("name");
+    document.getElementById("productPrice").innerText = params.get("price");
+
+    document.getElementById("payNow").addEventListener("click", () => {
+        alert("Payment Successful (Demo)");
+        window.location.href = "success.html";
+    });
+</script> -->
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("id");
+const qty = Number(params.get("qty")) || 1;
+
+let productData = null;
+let currentUser = null;
+
+// Get user from localStorage (if logged in)
+try {
+    const userStr = localStorage.getItem('user');
+    if (userStr) {
+        currentUser = JSON.parse(userStr);
+    }
+} catch (e) {
+    console.error('Error parsing user data:', e);
+}
+
+// Function to load product data
+async function loadProductData() {
+    if (productId) {
+        // Fetch product from API
+        try {
+            const response = await fetch(`/api/products/${productId}`);
+            if (response.ok) {
+                productData = await response.json();
+                displayProductInfo();
+            } else {
+                throw new Error('Product not found');
+            }
+        } catch (error) {
+            console.error('Error fetching product:', error);
+            // Fallback to URL parameters
+            loadFromUrlParams();
+        }
+    } else {
+        // Use old URL parameter format
+        loadFromUrlParams();
+    }
+}
+
+function loadFromUrlParams() {
+    const name = params.get("name");
+    const price = Number(params.get("price"));
+    productData = {
+        name: name,
+        price: price,
+        _id: null // No ID for old format
+    };
+    displayProductInfo();
+}
+
+function displayProductInfo() {
+    if (!productData) return;
+
+    const total = productData.price * qty;
+
+    document.getElementById("productName").innerText = productData.name || "Product";
+    document.getElementById("productPrice").innerText = productData.price?.toLocaleString('en-IN') || "0";
+    document.getElementById("productQty").innerText = qty;
+    document.getElementById("totalPrice").innerText = total.toLocaleString('en-IN');
+}
+
+// Load product data on page load
+loadProductData();
+
+// Handle payment
+document.getElementById("payNow").addEventListener("click", async () => {
+    if (!productData) {
+        alert("Product information is missing. Please try again.");
+        return;
+    }
+
+    // Check if user is logged in (required for orders)
+    if (!currentUser || !currentUser.id) {
+        alert("Please login to complete your order.");
+        window.location.href = "login.html?redirect=payment.html?" + params.toString();
+        return;
+    }
+
+    // If product doesn't have an ID (old format), we can't save the order properly
+    if (!productId && !productData._id) {
+        alert("Payment Successful (Demo) - Order could not be saved (using old product format)");
+        window.location.href = "success.html";
+        return;
+    }
+
+    try {
+        // Save order to database
+        const orderData = {
+            userId: currentUser.id,
+            productId: productId || productData._id,
+            productName: productData.name,
+            quantity: qty,
+            unitPrice: productData.price,
+            totalPrice: productData.price * qty
+        };
+
+        const response = await fetch('/api/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+            alert("Payment Successful! Order has been saved.");
+            window.location.href = "success.html";
+        } else {
+            console.error('Error saving order:', result.error);
+            alert("Payment Successful (Demo) - But order could not be saved: " + (result.error || "Unknown error"));
+            window.location.href = "success.html";
+        }
+    } catch (error) {
+        console.error('Error processing payment:', error);
+        alert("Payment Successful (Demo) - But order could not be saved due to connection error");
+        window.location.href = "success.html";
+    }
+});
+</script>
+
+
+
+</body>
+</html>

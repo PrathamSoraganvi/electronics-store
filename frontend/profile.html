@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMRT - My Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .profile-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            font-size: 80px;
+            margin-bottom: 15px;
+        }
+
+        .profile-header h1 {
+            margin: 10px 0;
+            font-size: 2rem;
+        }
+
+        .profile-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .profile-content {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .profile-section {
+            margin-bottom: 30px;
+        }
+
+        .profile-section h2 {
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .profile-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-info:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .info-value {
+            color: #333;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        .no-user-message {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .no-user-message a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .no-user-message a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <p>Free Shipping Over ₹500 Worldwide</p>
+    </div>
+
+    <header class="header">
+        <div class="header-main">
+            <div class="logo">SMRT</div>
+            <nav class="auth-nav">
+                <a href="login.html" id="loginLink">Log In</a>
+                <a href="profile.html" class="icon-link profile-link" id="profileLink" style="display: none;"><i class="fas fa-user-circle"></i></a>
+                <a href="cart.html" class="icon-link cart-icon"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a>
+            </nav>
+        </div>
+        <hr>
+        <div class="header-bottom">
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="electronics.html">Home</a></li>
+                    <li><a href="products.html">Shop</a></li>
+                    <li><a href="electronics.html#feedback">Feedback</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </nav>
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="profile-container">
+        <div id="profileContent">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h1 id="userName">User Name</h1>
+                <p id="userEmail">user@example.com</p>
+            </div>
+
+            <div class="profile-content">
+                <div class="profile-section">
+                    <h2>Account Information</h2>
+                    <div class="profile-info">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value" id="profileEmail">user@example.com</span>
+                    </div>
+                    <div class="profile-info">
+                        <span class="info-label">Name:</span>
+                        <span class="info-value" id="profileName">User Name</span>
+                    </div>
+                    <div class="profile-info">
+                        <span class="info-label">User ID:</span>
+                        <span class="info-value" id="profileId">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-content">
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <div id="noUserContent" style="display: none;">
+            <div class="profile-content">
+                <div class="no-user-message">
+                    <h2>Please Login to View Your Profile</h2>
+                    <p>You need to be logged in to access your profile page.</p>
+                    <p><a href="login.html">Click here to login</a> or <a href="signup.html">create an account</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>SMRT Electronics</h3>
+                <p>
+                    Your trusted store for Mobiles, Laptops, TVs, Audio devices and more.
+                    Quality products. Fast delivery. Best support.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="electronics.html">Home</a></li>
+                    <li><a href="products.html">Shop</a></li>
+                    <li><a href="electronics.html#feedback">Feedback</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">© 2025 SMRT Electronics. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Check if user is logged in
+        function checkAuth() {
+            const userStr = localStorage.getItem('user');
+            const loginLink = document.getElementById('loginLink');
+            const profileLink = document.getElementById('profileLink');
+            const profileContent = document.getElementById('profileContent');
+            const noUserContent = document.getElementById('noUserContent');
+
+            if (userStr) {
+                try {
+                    const user = JSON.parse(userStr);
+                    
+                    // Hide login link, show profile icon
+                    if (loginLink) loginLink.style.display = 'none';
+                    if (profileLink) profileLink.style.display = 'block';
+                    
+                    // Show profile content, hide no user message
+                    if (profileContent) profileContent.style.display = 'block';
+                    if (noUserContent) noUserContent.style.display = 'none';
+                    
+                    // Populate user data
+                    document.getElementById('userName').textContent = user.name || 'User';
+                    document.getElementById('userEmail').textContent = user.email || '';
+                    document.getElementById('profileName').textContent = user.name || 'Not provided';
+                    document.getElementById('profileEmail').textContent = user.email || '';
+                    document.getElementById('profileId').textContent = user.id || '-';
+                } catch (e) {
+                    console.error('Error parsing user data:', e);
+                    // If error, show login
+                    if (loginLink) loginLink.style.display = 'block';
+                    if (profileLink) profileLink.style.display = 'none';
+                }
+            } else {
+                // No user, show login link, hide profile
+                if (loginLink) loginLink.style.display = 'block';
+                if (profileLink) profileLink.style.display = 'none';
+                
+                // Show no user message, hide profile content
+                if (profileContent) profileContent.style.display = 'none';
+                if (noUserContent) noUserContent.style.display = 'block';
+            }
+        }
+
+        // Logout functionality
+        document.getElementById('logoutBtn')?.addEventListener('click', function() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('user');
+                window.location.href = 'electronics.html';
+            }
+        });
+
+        // Run on page load
+        checkAuth();
+    </script>
+</body>
+</html>

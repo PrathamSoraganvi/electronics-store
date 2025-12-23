@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="top-bar">
+        <p>Free Shipping Over ₹500 Worldwide</p>
+    </div>
+
+    <header class="header">
+        <div class="header-main">
+            <div class="logo">SMRT</div>
+            <nav class="auth-nav">
+                <a href="login.html" id="loginLink">Log In</a>
+                <a href="profile.html" class="icon-link profile-link" id="profileLink" style="display: none;"><i class="fas fa-user-circle"></i></a>
+                <a href="cart.html" class="icon-link cart-icon"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a>
+            </nav>
+        </div>
+        <hr>
+        <div class="header-bottom">
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">Mobile & Wearable Tech</a></li>
+                    <li><a href="#">Drones & Cameras</a></li>
+                    <li><a href="#">Headphones & Speakers</a></li>
+                    <li><a href="#">Computers</a></li>
+                    <li><a href="#">Tablets</a></li>
+                    <li><a href="#">TV & Home Cinema</a></li>
+                    <li><a href="#" class="phone-number">Call 123-456-7890</a></li>
+                </ul>
+            </nav>
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </button>
+        </div>
+    </header>
+    <div class="marquee-wrapper">
+      <div class="marquee-content">
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+         <span>Sale is on! </span>
+       </div>
+   </div>
+       <div class="container">
+      <div class="product-image-container">
+            <!-- <img src="images\apple-iphone-16-white-isolated-white-background_570051-851.avif" alt="FitWatch Fitness Smart Watch"> -->
+             <img id="productImage" src="">
+        </div>
+
+    <div class="product-details">
+
+        <!-- <div class="title">iPhone 16 128 GB: 5G Mobile Phone</div> -->
+        <div class="title" id="productTitle"></div>
+
+
+        <div class="rating">⭐ 4.7 | 3 reviews</div>
+
+        <div class="sku">SKU: 0053</div>
+
+        <!-- <div class="price">₹62,549.00</div> -->
+        <div class="price" id="productPrice"></div>
+
+
+        <!-- <div class="description">
+            iPhone 16 128 GB: 5G Mobile Phone with Camera Control,
+            A18 Chip and a Big Boost in Battery Life.
+            Works with AirPods; Ultramarine
+        </div> -->
+        <div class="description" id="productDesc"></div>
+
+
+        <div>
+            <label style="font-weight:bold; margin-top:15px;">QUANTITY</label>
+            <div class="qty-box">
+                <button id="decrease-qty-btn">-</button>
+                <input type="text" id="qty" value="1" readonly>
+                <button id="increase-qty-btn">+</button>
+            </div>
+        </div>
+
+        <!-- <button class="buy-btn">Buy Now</button> -->
+        <button class="buy-btn" id="buyNowBtn">Buy Now</button>
+
+
+    </div>
+</div>
+
+<div class="info-box">
+    <div class="info-title">Product Info</div>
+
+    <!-- <div class="info-text">
+        <ul>
+            <li>• BUILT FOR APPLE INTELLIGENCE — Apple Intelligence is the personal intelligence system that helps you write, express yourself and get things done effortlessly. With groundbreaking privacy protections, it gives you peace of mind that no one else can access your data — not even Apple.</li>
+            <li>• TAKE TOTAL CAMERA CONTROL — Camera Control gives you an easier way to quickly access camera tools, like zoom or depth of field, so you can take the perfect shot in record time.</li>
+            <li>• PHOTOGRAPHIC STYLES — The latest-generation Photographic Styles give you greater creative flexibility, so you can make every photo even more you. And you can reverse any of those styles anytime you want.</li>
+        </ul>
+    </div> -->
+    <div class="info-text">
+        <ul id="productInfo"></ul>
+    </div>
+
+</div>
+<footer>
+    <div class="footer-container">
+
+        <div class="footer-section">
+            <h3>SMRT Electronics</h3>
+            <p>
+                Your trusted store for Mobiles, Laptops, TVs, Audio devices and more.
+                Quality products. Fast delivery. Best support.
+            </p>
+        </div>
+
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="http://127.0.0.1:5500/frontend/electronics.html?#">Home</a></li>
+                <li><a href="http://127.0.0.1:5500/frontend/products.html">Shop</a></li>
+                <li><a href="electronics.html#feedback">Feedback</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <ul>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">YouTube</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <hr>
+    <p class="copyright">© 2025 SMRT Electronics. All Rights Reserved.</p>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    // Get the elements
+    const qtyInput = document.getElementById("qty");
+    const increaseBtn = document.getElementById("increase-qty-btn");
+    const decreaseBtn = document.getElementById("decrease-qty-btn");
+
+    // Function to increase quantity
+    function increaseQuantity() {
+        let currentValue = parseInt(qtyInput.value);
+        qtyInput.value = currentValue + 1;
+    }
+
+    // Function to decrease quantity
+    function decreaseQuantity() {
+        let currentValue = parseInt(qtyInput.value);
+        // Only decrease if the quantity is greater than 1
+        if (currentValue > 1) {
+            qtyInput.value = currentValue - 1;
+        }
+    }
+
+    // Attach event listeners to the buttons
+    increaseBtn.addEventListener('click', increaseQuantity);
+    decreaseBtn.addEventListener('click', decreaseQuantity);
+
+});
+</script>
+
+<script>
+    // Get product ID from URL parameter
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+
+    // Fetch product data from API
+    if (productId) {
+        fetch(`/api/products/${productId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Product not found');
+                }
+                return response.json();
+            })
+            .then(product => {
+                // Display product information
+                document.getElementById("productTitle").innerText = product.name;
+                document.getElementById("productPrice").innerText = "₹" + product.price.toLocaleString('en-IN');
+                document.getElementById("productDesc").innerText = product.description;
+                document.getElementById("productImage").src = "images/" + product.image;
+
+                // Display product info list
+                const infoList = document.getElementById("productInfo");
+                if (product.info && product.info.length > 0) {
+                    product.info.forEach(item => {
+                        const li = document.createElement("li");
+                        li.textContent = "• " + item;
+                        infoList.appendChild(li);
+                    });
+                }
+
+                // Store product data for later use (e.g., payment page)
+                window.currentProduct = product;
+            })
+            .catch(error => {
+                console.error('Error fetching product:', error);
+                document.getElementById("productTitle").innerText = "Product not found";
+                document.getElementById("productPrice").innerText = "";
+                document.getElementById("productDesc").innerText = "Sorry, we couldn't find this product.";
+            });
+    } else {
+        // Fallback: support old URL parameter format for backward compatibility
+        document.getElementById("productTitle").innerText = params.get("name") || "Product";
+        document.getElementById("productPrice").innerText = "₹" + (params.get("price") || "0");
+        document.getElementById("productDesc").innerText = params.get("desc") || "";
+        document.getElementById("productImage").src = "images/" + (params.get("img") || "");
+
+        const infoList = document.getElementById("productInfo");
+        const info = params.get("info");
+        if (info) {
+            info.split("|").forEach(item => {
+                const li = document.createElement("li");
+                li.textContent = "• " + item;
+                infoList.appendChild(li);
+            });
+        }
+    }
+</script>
+
+<script>
+document.getElementById("buyNowBtn").addEventListener("click", function () {
+    const qty = document.getElementById("qty").value;
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+
+    // If using new API-based approach (with product ID)
+    if (productId && window.currentProduct) {
+        // Redirect to payment page with product ID and quantity
+        window.location.href = `payment.html?id=${productId}&qty=${qty}`;
+    } else {
+        // Fallback: use old URL parameter format
+        params.set("qty", qty);
+        window.location.href = "payment.html?" + params.toString();
+    }
+});
+</script>
+
+
+
+</body>
+</html>
