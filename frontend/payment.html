@@ -104,15 +104,15 @@
         <!-- <p><strong>Amount:</strong> ₹<span id="productPrice"></span></p> -->
         <p><strong>Price:</strong> ₹<span id="productPrice"></span></p>
         <p><strong>Quantity:</strong> <span id="productQty"></span></p>
-        <p><strong>Total Amount:</strong> ₹<span id="totalPrice"></span></p>
+        <p><strong>Total Amount:</strong> <span id="totalPrice"></span></p>
 
     </div>
 
     <label>Full Name</label>
-    <input type="text" placeholder="Enter your name">
+    <input type="text" id="userName" placeholder="Enter your name" required>
 
     <label>Email Address</label>
-    <input type="email" placeholder="Enter your email">
+    <input type="email" id="userEmail" placeholder="Enter your email" required>
 
     <div class="payment-methods">
         <label><input type="radio" name="payment" checked> UPI</label>
@@ -126,17 +126,6 @@
         * This is a demo payment system (No real transaction)
     </div>
 </div>
-
-<!-- <script>
-    const params = new URLSearchParams(window.location.search);
-    document.getElementById("productName").innerText = params.get("name");
-    document.getElementById("productPrice").innerText = params.get("price");
-
-    document.getElementById("payNow").addEventListener("click", () => {
-        alert("Payment Successful (Demo)");
-        window.location.href = "success.html";
-    });
-</script> -->
 
 <script>
 const params = new URLSearchParams(window.location.search);
@@ -190,35 +179,66 @@ function loadFromUrlParams() {
     displayProductInfo();
 }
 
+// function displayProductInfo() {
+//     if (!productData) return;
+
+//     const total = productData.price * qty;
+
+//     document.getElementById("productName").innerText = productData.name || "Product";
+//     document.getElementById("productPrice").innerText = productData.price?.toLocaleString('en-IN') || "0";
+//     document.getElementById("productQty").innerText = qty;
+//     document.getElementById("totalPrice").innerText = total.toLocaleString('en-IN');
+// }
+
+
 function displayProductInfo() {
     if (!productData) return;
 
-    const total = productData.price * qty;
+    let originalTotal = productData.price * qty;
+    let finalTotal = originalTotal;
+    let discountText = "";
+
+    if (originalTotal > 1000) {
+        finalTotal = originalTotal * 0.9;
+        discountText = "<br><strong>10% off applied: ₹" + finalTotal.toLocaleString('en-IN') + "</strong>";
+    }
 
     document.getElementById("productName").innerText = productData.name || "Product";
     document.getElementById("productPrice").innerText = productData.price?.toLocaleString('en-IN') || "0";
     document.getElementById("productQty").innerText = qty;
-    document.getElementById("totalPrice").innerText = total.toLocaleString('en-IN');
+
+    document.getElementById("totalPrice").innerHTML = "₹" + originalTotal.toLocaleString('en-IN') //+ discountText;
 }
 
-// Load product data on page load
+
 loadProductData();
 
-// Handle payment
+
 document.getElementById("payNow").addEventListener("click", async () => {
+   const nameInput = document.getElementById("userName").value.trim();
+    const emailInput = document.getElementById("userEmail").value.trim();
+
+    if (nameInput === "" || emailInput === "") {
+        alert("Please enter your Name and Email before proceeding.");
+        return; // This stops the code from running the payment
+    }
+    // --- ADD THIS BLOCK END ---
+
+    if (!productData) {
+        alert("Product information is missing. Please try again.");
+        return;
+    }
     if (!productData) {
         alert("Product information is missing. Please try again.");
         return;
     }
 
-    // Check if user is logged in (required for orders)
     if (!currentUser || !currentUser.id) {
         alert("Please login to complete your order.");
         window.location.href = "login.html?redirect=payment.html?" + params.toString();
         return;
     }
 
-    // If product doesn't have an ID (old format), we can't save the order properly
     if (!productId && !productData._id) {
         alert("Payment Successful (Demo) - Order could not be saved (using old product format)");
         window.location.href = "success.html";
@@ -226,7 +246,6 @@ document.getElementById("payNow").addEventListener("click", async () => {
     }
 
     try {
-        // Save order to database
         const orderData = {
             userId: currentUser.id,
             productId: productId || productData._id,
