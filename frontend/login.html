@@ -30,7 +30,7 @@
 </div>
 
 <!-- JS inside same HTML -->
-<script>
+<!-- <script>
     document.getElementById("loginForm").addEventListener("submit", async function(e) {
         e.preventDefault();
 
@@ -38,9 +38,8 @@
         let password = document.getElementById("password").value.trim();
         let error = document.getElementById("error-message");
 
-        error.textContent = ""; // Clear old errors
+        error.textContent = ""; 
 
-        // Email validation
         let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (email === "") {
@@ -58,7 +57,6 @@
             return;
         }
 
-        // Verify credentials against database
         try {
             const response = await fetch('/api/auth/login', {
                 method: 'POST',
@@ -71,15 +69,12 @@
             const data = await response.json();
 
             if (response.ok && data.success) {
-                // Store user info in localStorage (optional, for future use)
                 if (data.user) {
                     localStorage.setItem('user', JSON.stringify(data.user));
                 }
 
-                // Redirect to main page
                 window.location.href = "electronics.html?login=success";
             } else {
-                // Show error message
                 error.textContent = data.error || "Invalid email or password";
             }
         } catch (err) {
@@ -87,6 +82,46 @@
             error.textContent = "Connection error. Please try again.";
         }
     });
+</script> -->
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let error = document.getElementById("error-message");
+
+    error.textContent = "";
+
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (email === "") {
+        error.textContent = "Enter email";
+        return;
+    }
+
+    if (!emailPattern.test(email)) {
+        error.textContent = "Invalid email id";
+        return;
+    }
+
+    if (password === "") {
+        error.textContent = "Enter password";
+        return;
+    }
+
+    // ✅ DEMO LOGIN (NO BACKEND)
+    const demoUser = {
+        id: "guest_" + Date.now(),
+        email: email,
+        name: email.split("@")[0]
+    };
+
+    localStorage.setItem("user", JSON.stringify(demoUser));
+
+    window.location.href = "electronics.html?login=success";
+});
+
 </script>
 
 </body>
